@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="-379.082434509644" Y="-770.326832860434" zoom="1.16545606111854" Name="LunchBox Wall Element Collector" ID="3cf8f8fd-ebe9-4199-9e90-a8fde957a2a2" Description="Collects wall elements from the Revit document." Category="LunchBox.Revit.Elements">
+<Workspace Version="0.8.0.950" X="132.423406667329" Y="-10.6995234096935" zoom="0.555541642495564" Name="LunchBox Wall Element Collector" ID="3cf8f8fd-ebe9-4199-9e90-a8fde957a2a2" Description="Collects wall elements from the Revit document." Category="LunchBox.Revit.Elements">
   <NamespaceResolutionMap />
   <Elements>
     <Dynamo.Nodes.DSFunction guid="caf8d41b-5aee-4cdf-bf9b-03a67ae8c765" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="728.276580118374" y="909.780769388082" isVisible="true" isUpstreamVisible="true" lacing="Disabled" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
@@ -69,21 +69,21 @@ if toggle == True:
 		famtypeID = item
 		faminst = doc.GetElement(famtypeID)
     
-		if walltype == '*':
+		if walltype is None:
 			loc = Revit.GeometryConversion.RevitToProtoCurve.ToProtoType( faminst.Location.Curve, True )
 			wall = faminst
     
-			levname = faminst.Parameter['底部限制条件'].AsValueString()
-			height = faminst.Parameter['无连接高度'].AsDouble()
-			area = faminst.Parameter['面积'].AsDouble()
+			#levname = faminst.Parameter['Base Constraint'].AsValueString()
+			#height = faminst.Parameter['Unconnected Height'].AsDouble()
+			#area = faminst.Parameter['Area'].AsDouble()
 			elementid = faminst.Id.ToString()
 			uniqueid = faminst.UniqueId
     	
 			walls.append(wall)
 			locations.append(loc)
-			heights.append(height)
-			areas.append(area)
-			levelnames.append(levname)
+			#heights.append(height)
+			#areas.append(area)
+			#levelnames.append(levname)
 			elementids.append(elementid)
 			uniqueids.append(uniqueid)    
     	
@@ -91,25 +91,25 @@ if toggle == True:
 			loc = Revit.GeometryConversion.RevitToProtoCurve.ToProtoType( faminst.Location.Curve, True )
 			wall = faminst
     
-			levname = faminst.Parameter['底部限制条件'].AsValueString()
-			height = faminst.Parameter['无连接高度'].AsDouble()
-			area = faminst.Parameter['面积'].AsDouble()
+			#levname = faminst.Parameter['Base Constraint'].AsValueString()
+			#height = faminst.Parameter['Unconnected Height'].AsDouble()
+			#area = faminst.Parameter['Area'].AsDouble()
 			elementid = faminst.Id.ToString()
 			uniqueid = faminst.UniqueId
     	
 			walls.append(wall)
 			locations.append(loc)
-			heights.append(height)
-			areas.append(area)
-			levelnames.append(levname)
+			#heights.append(height)
+			#areas.append(area)
+			#levelnames.append(levname)
 			elementids.append(elementid)
 			uniqueids.append(uniqueid)
         
 	output.append(walls)
 	output.append(locations)
-	output.append(heights)
-	output.append(areas)
-	output.append(levelnames)
+	#output.append(heights)
+	#output.append(areas)
+	#output.append(levelnames)
 	output.append(elementids)
 	output.append(uniqueids)
         
