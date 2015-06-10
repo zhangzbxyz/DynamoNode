@@ -1,7 +1,7 @@
-<Workspace Version="0.8.0.950" X="208" Y="217" zoom="1" Name="LunchBox Sheet Collector" ID="63863b9a-c8ae-45a0-ba09-6e930ca215af" Description="Collects sheets from the current document" Category="LunchBox.Revit.Elements">
+<Workspace Version="0.8.0.950" X="211.1775" Y="139.4875" zoom="0.8425" Name="LunchBox Sheet Collector" ID="63863b9a-c8ae-45a0-ba09-6e930ca215af" Description="Collects sheets from the current document" Category="LunchBox.Revit.Elements">
   <NamespaceResolutionMap />
   <Elements>
-    <DSIronPythonNode.PythonNode guid="86abed4c-c426-4172-a2c7-fca41faa6acc" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="119" y="44" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
+    <DSIronPythonNode.PythonNode guid="86abed4c-c426-4172-a2c7-fca41faa6acc" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="155.795252225519" y="-16.5341246290801" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
       <Script>#Copyright(c) 2014, Nathan Miller
 # The Proving Ground, http://theprovingground.org
 
@@ -32,14 +32,18 @@ doc =  DocumentManager.Instance.CurrentDBDocument
 paranames=IN[0]
 output = []
 sheets = []
-sheetnames = []
-sheetnumbers = []
+flag=0
 elementids = []
 uniqueids = []
 paraset=[]
-
-for i in range(len(paranames)):
-	paraset.append([])
+if paranames is None:
+	pass
+else:
+	flag=1
+	
+if flag:
+	for i in range(len(paranames)):
+		paraset.append([])
 	
 	
 
@@ -54,8 +58,9 @@ for item in famtypeitr:
 	elemID = item
 	inst = doc.GetElement(elemID)
 	sheet=inst
-	for i in range(0,len(paranames)):
-		paraset[i].append(inst.Parameter[paranames[i]].AsString())
+	if flag:
+		for i in range(0,len(paranames)):
+			paraset[i].append(inst.Parameter[paranames[i]].AsString())
 		
 	elementid = inst.Id
 	uniqueid = inst.UniqueId
@@ -69,13 +74,14 @@ for item in famtypeitr:
 output.append(sheets)
 output.append(elementids)
 output.append(uniqueids)
-output.append(paraset)
+if flag:
+	output.append(paraset)
         
 #Assign your output to the OUT variable
 OUT = output</Script>
     </DSIronPythonNode.PythonNode>
-    <Dynamo.Nodes.Symbol guid="9c1838a5-e34d-453b-b1cf-94baf61f8a96" type="Dynamo.Nodes.Symbol" nickname="Input" x="-60" y="41" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <Symbol value="Parameternames" />
+    <Dynamo.Nodes.Symbol guid="9c1838a5-e34d-453b-b1cf-94baf61f8a96" type="Dynamo.Nodes.Symbol" nickname="Input" x="-141.899109792285" y="-78.8813056379822" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Name of Parameter option" />
     </Dynamo.Nodes.Symbol>
     <Dynamo.Nodes.DSFunction guid="5502b602-3555-4655-b6fc-7b98664745ec" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="478.5" y="33" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
     <Dynamo.Nodes.DSFunction guid="f03dcc1f-a3c5-4db6-91d6-e95ebb1aa3ce" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="466" y="156" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
