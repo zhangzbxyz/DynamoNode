@@ -1,7 +1,7 @@
-<Workspace Version="0.8.0.950" X="211.1775" Y="139.4875" zoom="0.8425" Name="LunchBox Sheet Collector" ID="63863b9a-c8ae-45a0-ba09-6e930ca215af" Description="Collects sheets from the current document" Category="LunchBox.Revit.Elements">
+<Workspace Version="0.8.0.950" X="5.92037126435707" Y="285.353159803391" zoom="2.11614042156077" Name="LunchBox Sheet Collector" ID="63863b9a-c8ae-45a0-ba09-6e930ca215af" Description="Collects sheets from the current document" Category="LunchBox.Revit.Elements">
   <NamespaceResolutionMap />
   <Elements>
-    <DSIronPythonNode.PythonNode guid="86abed4c-c426-4172-a2c7-fca41faa6acc" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="155.795252225519" y="-16.5341246290801" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
+    <DSIronPythonNode.PythonNode guid="86abed4c-c426-4172-a2c7-fca41faa6acc" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="156.267810657753" y="-17.0066830613142" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
       <Script>#Copyright(c) 2014, Nathan Miller
 # The Proving Ground, http://theprovingground.org
 
@@ -28,7 +28,14 @@ clr.ImportExtensions(Revit.GeometryConversion)
 
 doc =  DocumentManager.Instance.CurrentDBDocument
 
-
+def getpara(para):
+	ptype=para.StorageType
+	if ptype==StorageType.String:
+		paravalue=para.AsString()
+	else:
+		paravalue=para.AsValueString()	
+	return paravalue
+	
 paranames=IN[0]
 output = []
 sheets = []
@@ -60,7 +67,7 @@ for item in famtypeitr:
 	sheet=inst
 	if flag:
 		for i in range(0,len(paranames)):
-			paraset[i].append(inst.Parameter[paranames[i]].AsString())
+			paraset[i].append(getpara(inst.Parameter[paranames[i]]))
 		
 	elementid = inst.Id
 	uniqueid = inst.UniqueId
@@ -81,7 +88,7 @@ if flag:
 OUT = output</Script>
     </DSIronPythonNode.PythonNode>
     <Dynamo.Nodes.Symbol guid="9c1838a5-e34d-453b-b1cf-94baf61f8a96" type="Dynamo.Nodes.Symbol" nickname="Input" x="-141.899109792285" y="-78.8813056379822" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <Symbol value="Name of Parameter option" />
+      <Symbol value="Parameter Names" />
     </Dynamo.Nodes.Symbol>
     <Dynamo.Nodes.DSFunction guid="5502b602-3555-4655-b6fc-7b98664745ec" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="478.5" y="33" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
     <Dynamo.Nodes.DSFunction guid="f03dcc1f-a3c5-4db6-91d6-e95ebb1aa3ce" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="466" y="156" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
