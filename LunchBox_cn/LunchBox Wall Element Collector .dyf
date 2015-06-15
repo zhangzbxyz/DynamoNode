@@ -1,14 +1,11 @@
-<Workspace Version="0.8.0.950" X="-56.476366632148" Y="-209.332139687716" zoom="0.955369560837314" Name="LunchBox Wall Element Collector" ID="3cf8f8fd-ebe9-4199-9e90-a8fde957a2a2" Description="Collects wall elements from the Revit document." Category="LunchBox.Revit.Elements">
+<Workspace Version="0.8.0.950" X="48.5728290438316" Y="-154.033734384519" zoom="0.80445255061381" Name="Wall Element Collector" ID="2707707a-86d1-4d0f-8040-445fca4ed575" Description="Collects wall elements from the Revit document." Category="DynamoChina">
   <NamespaceResolutionMap />
   <Elements>
     <Dynamo.Nodes.DSFunction guid="eccb7487-bc7e-4d97-8f8e-5303198e01f9" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="584.239014372963" y="765.495543095" isVisible="true" isUpstreamVisible="true" lacing="Disabled" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
     <Dynamo.Nodes.DSFunction guid="545db501-308c-4abc-b58b-21b5915b58b0" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="584.239014372963" y="644.018059711641" isVisible="true" isUpstreamVisible="true" lacing="Disabled" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
     <Dynamo.Nodes.DSFunction guid="5037065f-55ea-4629-8129-02f0265901a8" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="584.239014372963" y="522.540576328283" isVisible="true" isUpstreamVisible="true" lacing="Disabled" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
     <DSIronPythonNode.PythonNode guid="6a35c4d5-d9c1-49e4-8f9c-76f2d0d31fdc" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="348.317518409053" y="591.144141886166" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2">
-      <Script>#Copyright(c) 2014, Nathan Miller
-# The Proving Ground, http://theprovingground.org
-
-import clr
+      <Script>import clr
 
 clr.AddReference("RevitAPI")
 import Autodesk
