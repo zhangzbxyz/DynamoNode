@@ -1,0 +1,55 @@
+<Workspace Version="0.8.0.950" X="-117" Y="-156" zoom="1" Name="Select in Revit" ID="7e764734-cd39-4e20-95d9-cf082fa7b306" Description="Select given Element(s), ElementId(s) or element id(s) as string(s) in Revit" Category="DME.Revit">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.Symbol guid="55cc666a-6db3-49a0-9922-dad78db40782" type="Dynamo.Nodes.Symbol" nickname="Input" x="394" y="397" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Element(s)" />
+    </Dynamo.Nodes.Symbol>
+    <DSIronPythonNode.PythonNode guid="641dacd8-7a32-4f5a-ade3-242e47f9f8f5" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="559" y="395" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
+      <Script>import clr
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+clr.AddReference('RevitAPIUI')
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+def addToSet(doc, set, element):
+	try:
+		el = doc.GetElement(element)
+	except:
+		el = element
+	set.Add(el)
+
+
+elements = UnwrapElement(IN[0])
+
+doc =  DocumentManager.Instance.CurrentDBDocument
+app =  DocumentManager.Instance.CurrentUIDocument
+set = Autodesk.Revit.UI.Selection.SelElementSet.Create()
+
+try:
+	for el in elements:
+		addToSet(doc, set, el)
+except:
+	addToSet(doc, set, elements)
+
+app.Selection.Elements = set
+
+OUT = app.Selection</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.Output guid="6edde2d6-fa13-444d-ad42-201467752ac2" type="Dynamo.Nodes.Output" nickname="Output" x="746" y="397" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Selection" />
+    </Dynamo.Nodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="55cc666a-6db3-49a0-9922-dad78db40782" start_index="0" end="641dacd8-7a32-4f5a-ade3-242e47f9f8f5" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="641dacd8-7a32-4f5a-ade3-242e47f9f8f5" start_index="0" end="6edde2d6-fa13-444d-ad42-201467752ac2" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>
