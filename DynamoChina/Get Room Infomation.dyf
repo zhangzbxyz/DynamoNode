@@ -1,0 +1,91 @@
+<Workspace Version="0.8.0.950" X="-140.001545676693" Y="-174.499217972344" zoom="1.05588805731059" Name="Get Room Infomation" ID="d46bc80c-81c9-49db-909f-d091d3f2557f" Description="Get Room Infomation" Category="DynamoChina">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="aeac2166-5a09-4b62-bb08-627c234ee704" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="302.674237154691" y="326.055171377509" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
+      <Script>import clr
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+clr.ImportExtensions(Revit.GeometryConversion)
+
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+_room = UnwrapElement(IN[0])
+
+output = []
+boundaries = []
+locations = []
+rooms=[]
+names=[]
+
+try:
+	for room in _room:
+		rooms.append(room)
+except:
+	rooms.append(_room)
+
+for faminst in rooms:
+	area = faminst.Area	
+	location = faminst.Location.Point.ToPoint()
+	
+	names.append(faminst.get_Parameter(BuiltInParameter.ROOM_NAME).AsString())
+	locations.append(location)
+	
+	if area&gt;0:
+		boptions = Autodesk.Revit.DB.SpatialElementBoundaryOptions()
+		boundsegs = faminst.GetBoundarySegments(boptions)
+		boundcurves = []
+		for bound in boundsegs:
+			crvs = []
+			for seg in bound:
+				crv = seg.Curve
+				crvs.append(Revit.GeometryConversion.RevitToProtoCurve.ToProtoType(crv,True))
+			boundcurves.append(crvs)
+		boundaries.append(boundcurves)
+	else:
+		boundaries.append(None)
+		
+output.append(names)
+output.append(locations)
+output.append(boundaries)	
+
+OUT = output</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.Output guid="dd877634-9335-40d5-b990-fd9195223068" type="Dynamo.Nodes.Output" nickname="Output" x="690.74605884376" y="358.567209637724" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Location" />
+    </Dynamo.Nodes.Output>
+    <Dynamo.Nodes.Output guid="613393a5-01b1-443d-a6c9-73aae802870e" type="Dynamo.Nodes.Output" nickname="Output" x="681.798988751361" y="423.739308890485" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Boundaries" />
+    </Dynamo.Nodes.Output>
+    <Dynamo.Nodes.Symbol guid="e24f4279-e5cc-4271-9b2a-17dc91058de8" type="Dynamo.Nodes.Symbol" nickname="Input" x="189.27033420785" y="324.642672608975" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Rooms" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="098c04f5-9252-4ee7-a2ba-ae1ebaae1487" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="487.841210277197" y="329.710890241254" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="list[0];&#xA;list[1];&#xA;list[2];" ShouldFocus="false" />
+    <Dynamo.Nodes.Output guid="64f4886c-1eab-4228-b95b-bec4a94fa783" type="Dynamo.Nodes.Output" nickname="Output" x="701.048520629943" y="291.50304401417" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Name" />
+    </Dynamo.Nodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="aeac2166-5a09-4b62-bb08-627c234ee704" start_index="0" end="098c04f5-9252-4ee7-a2ba-ae1ebaae1487" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e24f4279-e5cc-4271-9b2a-17dc91058de8" start_index="0" end="aeac2166-5a09-4b62-bb08-627c234ee704" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="098c04f5-9252-4ee7-a2ba-ae1ebaae1487" start_index="0" end="64f4886c-1eab-4228-b95b-bec4a94fa783" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="098c04f5-9252-4ee7-a2ba-ae1ebaae1487" start_index="1" end="dd877634-9335-40d5-b990-fd9195223068" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="098c04f5-9252-4ee7-a2ba-ae1ebaae1487" start_index="2" end="613393a5-01b1-443d-a6c9-73aae802870e" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>
