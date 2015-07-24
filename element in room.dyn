@@ -1,29 +1,11 @@
-<Workspace Version="0.8.0.950" X="332.077001889884" Y="828.622980744316" zoom="0.835468310085676" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.1.1823" X="279.490058217348" Y="1003.38254864905" zoom="1.09570667624989" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
-    <Dynamo.Nodes.DSModelElementsSelection guid="7e9ae4f8-5f4b-4918-83af-b95beb6a5e96" type="Dynamo.Nodes.DSModelElementsSelection" nickname="Select Model Elements" x="-104.364353991256" y="-742.946316087319" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <instance id="656284ae-d84a-4c5c-ae16-d638fa151c7e-0007d115" />
-      <instance id="656284ae-d84a-4c5c-ae16-d638fa151c7e-0007d129" />
-      <instance id="4d910c58-706e-42b1-84e9-2f2677773ae0-000ab374" />
-      <instance id="57f8477a-60e4-4504-911c-957c1b7fc5d4-000b39fb" />
-      <instance id="80c6b7e4-2dd7-4a4e-ae16-489c86c3eac2-000b3cb3" />
-      <instance id="e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d15d1" />
-      <instance id="6b947320-bbcc-4f13-964d-b6403cf5dd5c-000efbcb" />
-      <instance id="6b947320-bbcc-4f13-964d-b6403cf5dd5c-000efeea" />
-      <instance id="99975ae8-4923-4142-9a90-6d9603fcba60-000efff6" />
-      <instance id="99975ae8-4923-4142-9a90-6d9603fcba60-000f0074" />
-      <instance id="99975ae8-4923-4142-9a90-6d9603fcba60-000f007c" />
-      <instance id="99975ae8-4923-4142-9a90-6d9603fcba60-000f00c4" />
-      <instance id="99975ae8-4923-4142-9a90-6d9603fcba60-000f010a" />
-      <instance id="99975ae8-4923-4142-9a90-6d9603fcba60-000f015c" />
-      <instance id="705e25a1-127e-4d76-b5f5-4e766ef073a3-000f0fae" />
-      <instance id="705e25a1-127e-4d76-b5f5-4e766ef073a3-000f101f" />
-    </Dynamo.Nodes.DSModelElementsSelection>
+    <Dynamo.Nodes.DSModelElementsSelection guid="7e9ae4f8-5f4b-4918-83af-b95beb6a5e96" type="Dynamo.Nodes.DSModelElementsSelection" nickname="Select Model Elements" x="-104.364353991256" y="-742.946316087319" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
     <DSIronPythonNode.PythonNode guid="16e9a89d-812a-4be1-a328-e844b008e157" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="435.448659633542" y="-658.895690514132" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2">
-      <Script>"""
-Copyright Peter Kompolschek 2015
-finds elements in rooms
-"""
+      <Script>#Copyright (c) 2015, zhangzbxyz
+#Dynamo中文社区 http://dynamochina.com
+
 import sys
 import clr
 clr.AddReference('ProtoGeometry')
@@ -41,21 +23,20 @@ from System.Collections.Generic import *
 clr.AddReference("RevitAPI")
 import Autodesk
 from Autodesk.Revit.DB import *
-#initialise lists and parameters
-#librarypaths
 
-#lists
-families = []
 elements=[]
 rooms=[]
 roomlist=[]
 
-#external functions
-
-# load elements, flatten list and unwrap revit elements
-elements=UnwrapElement(IN[0])
 rooms=UnwrapElement(IN[1])
-	
+
+try:
+	for item in IN[0]:
+		elements.append(UnwrapElement(item))
+except:
+	elements.append(UnwrapElement(IN[0]))
+
+
 for ele in elements:
 	point= ele.Location.Point
 	flag=0
@@ -69,7 +50,7 @@ for ele in elements:
 
 OUT=roomlist</Script>
     </DSIronPythonNode.PythonNode>
-    <DSRevitNodesUI.Categories guid="d9fb3575-7a18-4217-bbe8-ade8d689fda5" type="DSRevitNodesUI.Categories" nickname="Categories" x="-142.614797577604" y="-481.927115857612" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="709:Rooms" />
+    <DSRevitNodesUI.Categories guid="d9fb3575-7a18-4217-bbe8-ade8d689fda5" type="DSRevitNodesUI.Categories" nickname="Categories" x="-142.614797577604" y="-481.927115857612" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="721:Rooms" />
     <DSRevitNodesUI.ElementsOfCategory guid="acf042be-89fc-4aeb-8a66-33d2a7ab4019" type="DSRevitNodesUI.ElementsOfCategory" nickname="All Elements of Category" x="163.735107330404" y="-528.648829826974" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
   </Elements>
   <Connectors>
@@ -78,4 +59,5 @@ OUT=roomlist</Script>
     <Dynamo.Models.ConnectorModel start="acf042be-89fc-4aeb-8a66-33d2a7ab4019" start_index="0" end="16e9a89d-812a-4be1-a328-e844b008e157" end_index="1" portType="0" />
   </Connectors>
   <Notes />
+  <Annotations />
 </Workspace>

@@ -1,4 +1,4 @@
-<Workspace Version="0.8.1.1942" X="-722.306199083889" Y="-228.464998920855" zoom="0.977672648141993" Name="Get Parameters from Elements" ID="4c784a8d-102a-4b76-adb1-7b4163c3e2d5" Description="Get Parameters from Elements" Category="DynamoChina">
+<Workspace Version="0.8.1.1823" X="-55.9913108240793" Y="-26.3466560037523" zoom="0.692004707491244" Name="Get Parameters" ID="966d0c9f-be89-4ae4-b927-8d8a18f27da7" Description="Get Parameters from Elements" Category="DynamoChina">
   <NamespaceResolutionMap />
   <Elements>
     <Dynamo.Nodes.Symbol guid="d31d10ea-4e3a-4a71-a9c4-caffa8319e48" type="Dynamo.Nodes.Symbol" nickname="Input" x="327.592977129713" y="335.726737092706" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
@@ -68,8 +68,11 @@ for inst in instlist:
 	#famsymname=inst.Name
 	fam=getfam(famsym)
 	for i in range(len(paranames)):
-		instpara= inst.Parameter[paranames[i]]
-		fampara=famsym.Parameter[paranames[i]]
+		try:
+			instpara= inst.Parameter[paranames[i]]
+			fampara=famsym.Parameter[paranames[i]]
+		except:
+			continue
 		try:
 			para=getparaval(instpara)
 		except:
@@ -78,9 +81,18 @@ for inst in instlist:
 			except:
 				para="no parameter"
 		paraset[i].append(para)
-	fams.append(fam)
-	famsyms.append(inst.Name)
-	elementids.append(inst.Id.ToString())
+	try:
+		fams.append(fam)
+	except:
+		fams.append("error")
+	try:
+		famsyms.append(inst.Name)
+	except:
+		famsyms.append("error")
+	try:
+		elementids.append(inst.Id.ToString())
+	except:
+		elementids.append("error")
 
 if len(instlist)==1:
 	output.append(fams[0])
