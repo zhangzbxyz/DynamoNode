@@ -1,0 +1,103 @@
+<Workspace Version="0.8.1.1823" X="420" Y="176" zoom="1" Name="Get Curtaingrid" ID="429ff69c-ed89-466a-848b-17005f86105f" Description="get gridline from curtain" Category="DynamoChina">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="9797c21a-647d-4bce-9445-bf6202a6afa3" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="-160" y="52.1542004856536" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" inputcount="1">
+      <Script>#Copyright (c) 2015, zhangzbxyz
+#Dynamo中文社区 http://dynamochina.com
+
+import clr
+
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+
+clr.AddReference("RevitNodes")
+import Revit
+
+clr.ImportExtensions(Revit.Elements)
+clr.ImportExtensions(Revit.GeometryConversion)
+
+doc = DocumentManager.Instance.CurrentDBDocument
+input=UnwrapElement(IN[0])
+
+uls=[]
+vls=[]
+ulset=[]
+vlset=[]
+str="please select a curtainwall or curtainsytem!"
+
+if isinstance(input,CurtainSystem):
+	cgset=input.CurtainGrids
+	for i in cgset:
+		ulids=i.GetUGridLineIds()
+		vlids=i.GetVGridLineIds()
+		for ulid in ulids:
+			ul=doc.GetElement(ulid)
+			uline=ul.FullCurve.ToProtoType()
+			uls.append(uline)
+		for vlid in vlids:
+			vl=doc.GetElement(vlid)
+			vline=vl.FullCurve.ToProtoType()
+			vls.append(vline)        
+		ulset.append(uls)
+		vlset.append(vls)
+	out=[ulset,vlset]
+elif isinstance(input,Wall):
+	walltype=doc.GetElement(input.GetTypeId())
+	if walltype.Kind==WallKind.Curtain:
+		cgset=input.CurtainGrid
+		ulids=cgset.GetUGridLineIds()
+		vlids=cgset.GetVGridLineIds()
+		for ulid in ulids:
+			ul=doc.GetElement(ulid)
+			uline=ul.FullCurve.ToProtoType()
+			uls.append(uline)
+		for vlid in vlids:
+			vl=doc.GetElement(vlid)
+			vline=vl.FullCurve.ToProtoType()
+			vls.append(vline)        
+		out=[uls,vls]
+	else:
+		out=[str,str]
+else:
+	out=[str,str]
+        
+OUT = out</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="d7aa0b3c-028e-48d7-b90d-f7cbcbf06b56" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="13.3570529024377" y="7" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" CodeText="a[0];" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="fbf0a994-6b94-45d3-8cf8-8bebc2898173" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="11.7185080768277" y="80.0595530152928" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" CodeText="a[1];" ShouldFocus="false" />
+    <Dynamo.Nodes.Symbol guid="0916a1f9-f7b4-44a3-9f8b-eb8fdf5469d1" type="Dynamo.Nodes.Symbol" nickname="Input" x="-312.5" y="51.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <Symbol value="Curtain" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Output guid="957c969c-93c9-44e1-a365-522bdd116769" type="Dynamo.Nodes.Output" nickname="Output" x="384.5" y="-2.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False">
+      <Symbol value="U Grid Lines " />
+    </Dynamo.Nodes.Output>
+    <Dynamo.Nodes.Output guid="4d5d0e41-7a61-46c1-a1b6-e79a6143c078" type="Dynamo.Nodes.Output" nickname="Output" x="378" y="78" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False">
+      <Symbol value="V Grid Lines" />
+    </Dynamo.Nodes.Output>
+    <Dynamo.Nodes.DSFunction guid="91487f1a-62bf-4060-bbe0-b8d215923a4f" type="Dynamo.Nodes.DSFunction" nickname="List.Flatten" x="195.5" y="-27.5" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.Flatten@var[]..[],int" />
+    <Dynamo.Nodes.DSFunction guid="5880d3ee-b2aa-4702-a15e-4901460d719d" type="Dynamo.Nodes.DSFunction" nickname="List.Flatten" x="193.5" y="85.5" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.Flatten@var[]..[],int" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="78469050-cfae-4d55-8627-f644f9a73877" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="23" y="-66" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="1;" ShouldFocus="false" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="9797c21a-647d-4bce-9445-bf6202a6afa3" start_index="0" end="d7aa0b3c-028e-48d7-b90d-f7cbcbf06b56" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="9797c21a-647d-4bce-9445-bf6202a6afa3" start_index="0" end="fbf0a994-6b94-45d3-8cf8-8bebc2898173" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="d7aa0b3c-028e-48d7-b90d-f7cbcbf06b56" start_index="0" end="91487f1a-62bf-4060-bbe0-b8d215923a4f" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="fbf0a994-6b94-45d3-8cf8-8bebc2898173" start_index="0" end="5880d3ee-b2aa-4702-a15e-4901460d719d" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="0916a1f9-f7b4-44a3-9f8b-eb8fdf5469d1" start_index="0" end="9797c21a-647d-4bce-9445-bf6202a6afa3" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="91487f1a-62bf-4060-bbe0-b8d215923a4f" start_index="0" end="957c969c-93c9-44e1-a365-522bdd116769" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="5880d3ee-b2aa-4702-a15e-4901460d719d" start_index="0" end="4d5d0e41-7a61-46c1-a1b6-e79a6143c078" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="78469050-cfae-4d55-8627-f644f9a73877" start_index="0" end="91487f1a-62bf-4060-bbe0-b8d215923a4f" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="78469050-cfae-4d55-8627-f644f9a73877" start_index="0" end="5880d3ee-b2aa-4702-a15e-4901460d719d" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="10" eyeY="15" eyeZ="10" lookX="-10" lookY="-10" lookZ="-10" />
+  </Cameras>
+</Workspace>
