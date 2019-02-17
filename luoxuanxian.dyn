@@ -1,0 +1,44 @@
+<Workspace Version="0.8.1.1823" X="49.6898110606182" Y="-99.3250193883769" zoom="0.857942222587849" Name="Home" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap>
+    <ClassMap partialName="Point" resolvedName="Autodesk.DesignScript.Geometry.Point" assemblyName="ProtoGeometry.dll" />
+  </NamespaceResolutionMap>
+  <Elements>
+    <Dynamo.Nodes.DSFunction guid="3ca9b8eb-b2d3-4a6b-8736-15a8fba97dbc" type="Dynamo.Nodes.DSFunction" nickname="Helix.ByAxis" x="362.519566206095" y="277" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Helix.ByAxis@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Point,double,double">
+      <PortInfo index="0" default="True" />
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+      <PortInfo index="3" default="True" />
+      <PortInfo index="4" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="a25ea69a-2e30-4bf6-a12b-8c00bd45f7a8" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="-13" y="385" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="360;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="1648cd39-fcc2-47c6-bbc9-8985378f3a89" type="Dynamo.Nodes.DSFunction" nickname="Vector.XAxis" x="76.7829768917873" y="232.555437583936" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Vector.XAxis" />
+    <Dynamo.Nodes.DSFunction guid="16bddd78-82b5-4368-97f7-94110d8bdbc3" type="Dynamo.Nodes.DSFunction" nickname="Point.ByCoordinates" x="157.824637241736" y="442.840942413481" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double">
+      <PortInfo index="0" default="True" />
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="bf47d3bd-855b-4bef-a26b-fd4e5c01418c" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="-50" y="465" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="0;&#xA;10;&#xA;10;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="a2b36bf3-aaa1-4208-b45e-ec878209e191" type="Dynamo.Nodes.DSFunction" nickname="Helix.Angle" x="498.886702870916" y="69.3878859930995" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Helix.Angle" />
+    <Dynamo.Nodes.DSFunction guid="22e1494c-d77a-470c-86cb-b03d85ae568d" type="Dynamo.Nodes.DSFunction" nickname="Helix.AxisDirection" x="484.899747008312" y="194.104909101312" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Helix.AxisDirection" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="ce7c70ee-34eb-413c-be6c-6b8953da6742" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="-51.3637696539258" y="87.5268213713846" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="1..5;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="ddf5cdc7-982e-4158-8d6e-82dd29bb52c1" type="Dynamo.Nodes.DSFunction" nickname="Point.ByCoordinates" x="89.6209664717691" y="54.6708628848864" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double">
+      <PortInfo index="0" default="True" />
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="3ca9b8eb-b2d3-4a6b-8736-15a8fba97dbc" start_index="0" end="a2b36bf3-aaa1-4208-b45e-ec878209e191" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="3ca9b8eb-b2d3-4a6b-8736-15a8fba97dbc" start_index="0" end="22e1494c-d77a-470c-86cb-b03d85ae568d" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="a25ea69a-2e30-4bf6-a12b-8c00bd45f7a8" start_index="0" end="3ca9b8eb-b2d3-4a6b-8736-15a8fba97dbc" end_index="4" portType="0" />
+    <Dynamo.Models.ConnectorModel start="1648cd39-fcc2-47c6-bbc9-8985378f3a89" start_index="0" end="3ca9b8eb-b2d3-4a6b-8736-15a8fba97dbc" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="16bddd78-82b5-4368-97f7-94110d8bdbc3" start_index="0" end="3ca9b8eb-b2d3-4a6b-8736-15a8fba97dbc" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="bf47d3bd-855b-4bef-a26b-fd4e5c01418c" start_index="1" end="16bddd78-82b5-4368-97f7-94110d8bdbc3" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="bf47d3bd-855b-4bef-a26b-fd4e5c01418c" start_index="2" end="16bddd78-82b5-4368-97f7-94110d8bdbc3" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="ce7c70ee-34eb-413c-be6c-6b8953da6742" start_index="0" end="ddf5cdc7-982e-4158-8d6e-82dd29bb52c1" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="ce7c70ee-34eb-413c-be6c-6b8953da6742" start_index="0" end="16bddd78-82b5-4368-97f7-94110d8bdbc3" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="ddf5cdc7-982e-4158-8d6e-82dd29bb52c1" start_index="0" end="3ca9b8eb-b2d3-4a6b-8736-15a8fba97dbc" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+</Workspace>

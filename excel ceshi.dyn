@@ -1,0 +1,52 @@
+<Workspace Version="0.8.0.950" X="17.3619393351814" Y="79.3790714649621" zoom="0.784750756324927" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.DSFunction guid="69794873-d570-4d80-b320-f75a5160b194" type="Dynamo.Nodes.DSFunction" nickname="Excel.ReadFromFile" x="487.263348081846" y="207.255796634799" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSOffice.dll" function="DSOffice.Excel.ReadFromFile@var,string" />
+    <DSCore.File.Filename guid="e8dbecb7-a712-4e37-86d7-62bf91ab8e1e" type="DSCore.File.Filename" nickname="File Path" x="-141.155840243892" y="116.976564554775" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.String>D:\Domain_Users_Documents\zhangzebin\桌面\房间布置1.xlsx</System.String>
+    </DSCore.File.Filename>
+    <DSCore.File.FileObject guid="31aeb535-5cad-4c55-8594-b93c70426b81" type="DSCore.File.FileObject" nickname="File.FromPath" x="297.031781737925" y="156.501709593841" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.StringInput guid="9a291a16-630a-42af-8ad2-6d14a3622081" type="Dynamo.Nodes.StringInput" nickname="String" x="376.114448921864" y="293.597096556708" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.String>Sheet1</System.String>
+      <System.String value="Sheet1" />
+    </Dynamo.Nodes.StringInput>
+    <Dynamo.Nodes.DSFunction guid="b79430e8-8c7f-4f5c-8368-cf697c077279" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="730.335526346577" y="194.086747181582" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.DoubleInput guid="2c656c03-cdc5-4c28-aaa2-ebc9e0b599c2" type="Dynamo.Nodes.DoubleInput" nickname="Number" x="604.460715956391" y="78.1785129458596" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="1" />
+    </Dynamo.Nodes.DoubleInput>
+    <Dynamo.Nodes.DSFunction guid="d7e48f7e-904b-468d-93d1-ddb747424bd7" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="729.683328102863" y="356.761887280565" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.DoubleInput guid="8368371b-8a97-491c-9f82-7b07c227dff1" type="Dynamo.Nodes.DoubleInput" nickname="Number" x="601.53492894922" y="139.42334142656" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="0" />
+    </Dynamo.Nodes.DoubleInput>
+    <DSCoreNodesUI.CreateList guid="44c2853e-5a8f-4cae-a0ac-c80a9512246b" type="DSCoreNodesUI.CreateList" nickname="List.Create" x="916.124000995963" y="223.147216076232" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2" />
+    <Dynamo.Nodes.DSFunction guid="f93dd3de-2ff9-481d-bc99-fe3cdb744e13" type="Dynamo.Nodes.DSFunction" nickname="List.Transpose" x="1100.79307967872" y="201.278509390115" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.Transpose@var[]..[]" />
+    <DSCore.Map guid="072eaaa2-2e68-4822-a625-91b063c21584" type="DSCore.Map" nickname="List.Map" x="1396.02061994129" y="287.538407985351" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.Function guid="d9c5c55c-21ac-46a9-89e4-cf37fc9f991f" type="Dynamo.Nodes.Function" nickname="Create Floor of Rooms" x="1157.90010740186" y="413.05580184536" isVisible="true" isUpstreamVisible="true" lacing="Shortest">
+      <ID value="22522c38-66b6-4b3b-879c-00348b27dde1" />
+      <Name value="Create Floor of Rooms" />
+      <Description value="Create Floor of Rooms" />
+      <Inputs>
+        <Input value="list" />
+      </Inputs>
+      <Outputs>
+        <Output value="Floor" />
+        <Output value="out" />
+        <Output value="room" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="69794873-d570-4d80-b320-f75a5160b194" start_index="0" end="b79430e8-8c7f-4f5c-8368-cf697c077279" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="69794873-d570-4d80-b320-f75a5160b194" start_index="0" end="d7e48f7e-904b-468d-93d1-ddb747424bd7" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e8dbecb7-a712-4e37-86d7-62bf91ab8e1e" start_index="0" end="31aeb535-5cad-4c55-8594-b93c70426b81" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="31aeb535-5cad-4c55-8594-b93c70426b81" start_index="0" end="69794873-d570-4d80-b320-f75a5160b194" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="9a291a16-630a-42af-8ad2-6d14a3622081" start_index="0" end="69794873-d570-4d80-b320-f75a5160b194" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="b79430e8-8c7f-4f5c-8368-cf697c077279" start_index="0" end="44c2853e-5a8f-4cae-a0ac-c80a9512246b" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="2c656c03-cdc5-4c28-aaa2-ebc9e0b599c2" start_index="0" end="b79430e8-8c7f-4f5c-8368-cf697c077279" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="d7e48f7e-904b-468d-93d1-ddb747424bd7" start_index="0" end="44c2853e-5a8f-4cae-a0ac-c80a9512246b" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="8368371b-8a97-491c-9f82-7b07c227dff1" start_index="0" end="d7e48f7e-904b-468d-93d1-ddb747424bd7" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="44c2853e-5a8f-4cae-a0ac-c80a9512246b" start_index="0" end="f93dd3de-2ff9-481d-bc99-fe3cdb744e13" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f93dd3de-2ff9-481d-bc99-fe3cdb744e13" start_index="0" end="072eaaa2-2e68-4822-a625-91b063c21584" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>

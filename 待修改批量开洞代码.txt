@@ -1,0 +1,72 @@
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# Import RevitAPI
+clr.AddReference('RevitAPI')
+import Autodesk
+
+# Import DocumentManager and TransactionManager
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSType(bool) extension method
+clr.AddReference('RevitNodes')
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+walls = UnwrapElement(IN[0])
+pipes = UnwrapElement(IN[1])
+windowfamily = UnwrapElement(IN[2])
+guanjing = IN[3]/0.3048
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uiapp = DocumentManager.Instance.CurrentUIApplication
+app = uiapp.Application
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+#search for existing windows and delete
+#elList = wall.FindInserts(True, False, False, False)
+#for elemId in elList:
+#	doc.Delete(elemId)
+# extract wall geometry and calculate middlepoint
+for i in range (0,len(walls)):
+
+	wall = walls[i]
+	pipe = pipes[i]
+	locCurve1 = wall.Location
+	locCurve2 = pipe.Location
+
+	start1 = locCurve1.Curve.GetEndPoint(0)
+	end1 = locCurve1.Curve.GetEndPoint(1)
+	start2 = locCurve2.Curve.GetEndPoint(0)
+	end2 = locCurve2.Curve.GetEndPoint(1)
+
+	x1 = start1.X
+	y1 = start1.Y
+	x2 = end1.X
+	y2 = end1.Y
+	x3 = start2.X
+	y3 = start2.Y
+	x4 = end2.X
+	y4 = end2.Y
+
+	a = (y1 - y2) / (x1 - x2)
+	b = (x1 * y2 - x2 * y1) / (x1 - x2)
+	c = (y3 - y4) / (x3 - x4)
+	d = (x3 * y4 - x4 * y3) / (x3 - x4)
+
+	xx = ((x1 - x2) * (x3 * y4 - x4 * y3) - (x3 - x4) * (x1 * y2 - x2 * y1))/ ((x3 - x4) * (y1 - y2) - (x1 - x2) * (y3 - y4))
+	yy = ((y1 - y2) * (x3 * y4 - x4 * y3) - (x1 * y2 - x2 * y1) * (y3 - y4))/ ((y1 - y2) * (x3 - x4) - (x1 - x2) * (y3 - y4))
+
+	location = Autodesk.Revit.DB.XYZ(xx,yy,start1.Z)
+
+	SillHeight = start2.Z-start1.Z-guanjing/2-0.082
+	famInst = doc.Create.NewFamilyInstance(location, windowfamily, wall, Autodesk.Revit.DB.Structure.StructuralType.NonStructural)
+	famInst.get_Parameter('底高度').Set(SillHeight)
+	famInst.get_Parameter('管道直径').Set(guanjing)
+
+# End Transaction
+TransactionManager.Instance.TransactionTaskDone()

@@ -1,0 +1,279 @@
+<Workspace Version="0.8.0.950" X="-265.0198556899" Y="193.075474123664" zoom="1.19615930026766" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="16e9a89d-812a-4be1-a328-e844b008e157" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="856.289216785504" y="14.9916266803538" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2">
+      <Script>"""
+Copyright Peter Kompolschek 2015
+finds elements in rooms
+"""
+import sys
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+# Import ToDSType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+# Import geometry conversion extension methods
+clr.ImportExtensions(Revit.GeometryConversion)
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+from System.Collections.Generic import *
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB.Plumbing import *
+
+from Autodesk.Revit.DB.Mechanical import *
+#initialise lists and parameters
+#librarypaths
+
+doc =  DocumentManager.Instance.CurrentDBDocument
+app =  DocumentManager.Instance.CurrentUIApplication.Application
+
+def getsymbol(ele):
+	if ele.GetType()==FamilyInstance:
+		return ele.Symbol
+	elif ele.GetType()==Wall:
+		return ele.WallType
+	elif ele.GetType()==Floor:
+		return ele.FloorType
+	elif ele.GetType()==RoofBase:
+		return ele.RoofType
+	elif ele.GetType()==Pipe:
+		return ele.PipeType
+
+def returnsymbol(ele):
+	if isinstance(ele,FamilyInstance):
+		return "FamilyInstance"
+	elif isinstance(ele,Wall):
+		return "WallType"
+	elif ele.GetType()==Floor:
+		return ele.FloorType
+	elif isinstance(ele,RoofBase):
+		return "RoofType"
+	elif ele.GetType()==Pipe:
+		return ele.PipeType
+list=[]
+# load elements, flatten list and unwrap revit elements
+#for i in IN[0]:
+	#list.append(UnwrapElement(i))
+	
+x=[]
+y=[]
+z=[]
+#for i in list:
+	#x.append(i.GetType())
+	#z.append(returnsymbol(i))
+	#y.append(i.Id)
+
+a=UnwrapElement(IN[0])
+name=IN[1]
+type=a.GetType()
+typeid=a.GetTypeId()
+sym=doc.GetElement(typeid)
+para=sym.Parameter[name].AsString()
+#for i in a:
+	#x.append(i.Type)
+
+
+OUT=[type,sym,para]</Script>
+    </DSIronPythonNode.PythonNode>
+    <DSRevitNodesUI.Categories guid="d9fb3575-7a18-4217-bbe8-ade8d689fda5" type="DSRevitNodesUI.Categories" nickname="Categories" x="-142.614797577604" y="-481.927115857612" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="709:Rooms" />
+    <DSRevitNodesUI.ElementsOfCategory guid="acf042be-89fc-4aeb-8a66-33d2a7ab4019" type="DSRevitNodesUI.ElementsOfCategory" nickname="All Elements of Category" x="163.735107330404" y="-528.648829826974" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="2093ef3c-1213-4ad3-8ae0-af9d28f1a23c" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="361" y="-474" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="10;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="aeb2edba-87ef-4895-a829-c58152842631" type="Dynamo.Nodes.DSFunction" nickname="Color.ByARGB" x="903.049546625165" y="-538.576530006092" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.Color.ByARGB@int,int,int,int">
+      <PortInfo index="0" default="True" />
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+      <PortInfo index="3" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.Function guid="ffd77afa-ceeb-4b4c-b486-66bc30010ac0" type="Dynamo.Nodes.Function" nickname="Get Room Infomation" x="993.638070767393" y="-1113.30722485953" isVisible="true" isUpstreamVisible="true" lacing="Shortest">
+      <ID value="d46bc80c-81c9-49db-909f-d091d3f2557f" />
+      <Name value="Get Room Infomation" />
+      <Description value="Get Room Infomation" />
+      <Inputs>
+        <Input value="Rooms" />
+      </Inputs>
+      <Outputs>
+        <Output value="Area" />
+        <Output value="Location" />
+        <Output value="Boundaries" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <DSIronPythonNode.PythonNode guid="871bed12-d020-4509-b07a-625b836649f5" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="702.952224295666" y="-1120.76490790946" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
+      <Script>import clr
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+clr.ImportExtensions(Revit.GeometryConversion)
+
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+#The input to this node will be stored in the IN[0] variable.
+
+doc =  DocumentManager.Instance.CurrentDBDocument
+app =  DocumentManager.Instance.CurrentUIApplication.Application
+
+rooms = UnwrapElement(IN[0])
+
+output = []
+rooms = []
+areas = []
+boundaries = []
+locations = []
+
+
+for faminst in rooms:
+	if faminst.Area &gt; 0:
+		area = faminst.Area
+		location = faminst.Location.Point.ToPoint()
+		boptions = Autodesk.Revit.DB.SpatialElementBoundaryOptions()
+		boundsegs = room.GetBoundarySegments(boptions)
+		boundcurves = []
+		for bound in boundsegs:
+			crvs = []
+			for seg in bound:
+				crv = seg.Curve
+				crvs.append(Revit.GeometryConversion.RevitToProtoCurve.ToProtoType( crv, True ))
+			boundcurves.append(crvs)
+    	
+		areas.append(area)
+		boundaries.append(boundcurves)
+		locations.append(location)
+
+output.append(areas)
+output.append(locations)
+output.append(boundaries)	
+        
+#Assign your output to the OUT variable
+OUT = output</Script>
+    </DSIronPythonNode.PythonNode>
+    <DSCoreNodesUI.CreateList guid="8e0a2c2c-d8a4-41bb-a0c1-0106d97f3e5f" type="DSCoreNodesUI.CreateList" nickname="List.Create" x="512.648401421254" y="-1060.78678252098" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2" />
+    <Dynamo.Nodes.DSFunction guid="74457db6-33f3-488e-a044-65e3a195baf2" type="Dynamo.Nodes.DSFunction" nickname="List.Empty" x="271.274928958259" y="-874.077756708289" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.Empty" />
+    <Dynamo.Nodes.DSModelElementsSelection guid="973e1dc3-c658-4872-90b3-b1c5ccbeb891" type="Dynamo.Nodes.DSModelElementsSelection" nickname="Select Model Elements" x="-218.540340907684" y="-120.678538000133" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="29f161c1-085a-4640-8ea9-5964854d78b3-0009e2a9" />
+      <instance id="29f161c1-085a-4640-8ea9-5964854d78b3-0009e30a" />
+      <instance id="29f161c1-085a-4640-8ea9-5964854d78b3-0009e337" />
+      <instance id="29f161c1-085a-4640-8ea9-5964854d78b3-0009e357" />
+      <instance id="29f161c1-085a-4640-8ea9-5964854d78b3-0009e375" />
+      <instance id="29f161c1-085a-4640-8ea9-5964854d78b3-0009e5fd" />
+    </Dynamo.Nodes.DSModelElementsSelection>
+    <Dynamo.Nodes.DSModelElementSelection guid="b6338f73-0267-4cb3-9486-452f1f1c5419" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Model Element" x="2.87394759650118" y="-955.630362583596" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="29f161c1-085a-4640-8ea9-5964854d78b3-0009e357" />
+    </Dynamo.Nodes.DSModelElementSelection>
+    <DSIronPythonNode.PythonNode guid="06314dfb-d523-4f06-a41f-d0d130cd943a" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="550.664001698305" y="-592.314813517351" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2">
+      <Script>#Copyright (c) 2015, zhangzbxyz
+#Dynamo中文社区 http://dynamochina.com
+
+import clr
+
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB.Plumbing import *
+from Autodesk.Revit.DB.Mechanical import *
+
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+
+clr.AddReference("RevitNodes")
+import Revit
+
+clr.ImportExtensions(Revit.Elements)
+
+
+def getsymbol(ele):
+	if isinstance(ele,FamilyInstance):
+		return ele.Symbol
+	elif isinstance(ele,Wall):
+		return ele.WallType
+	elif isinstance(ele,Floor):
+		return ele.FloorType
+	elif isinstance(ele,RoofBase):
+		return ele.RoofType
+	elif ele.GetType()==Pipe:
+		return ele.PipeType
+
+def getparaval(para):
+	ptype=para.StorageType
+	if ptype==StorageType.String:
+		paravalue=para.AsString()
+	else:
+		paravalue=para.AsValueString()	
+	return paravalue
+
+instlist = UnwrapElement(IN[0])
+paranames=IN[1]
+
+doc = DocumentManager.Instance.CurrentDBDocument
+output = []
+famsyms = []
+elementids = []
+paraset = []
+flag0= 0 if len(paranames)==0 else 1
+
+if flag0:
+	for i in range(len(paranames)):
+		paraset.append([])
+
+for inst in instlist:
+	famsym =getsymbol(inst)
+	
+	for i in range(len(paranames)):
+		instpara= inst.Parameter[paranames[i]]
+		fampara=famsym.Parameter[paranames[i]]
+		if instpara is not None:
+			para=getparaval(instpara)
+		elif fampara is not None:
+			para=getparaval(fampara)
+		else:
+			para="no parameter"
+		paraset[i].append(para)
+			
+	famsyms.append(famsym)
+	elementids.append(inst.Id.ToString())
+
+output.append(famsyms)
+output.append(elementids)
+if flag0:
+	output.append(paraset)
+        
+OUT = output</Script>
+    </DSIronPythonNode.PythonNode>
+    <DSRevitNodesUI.Categories guid="165e0f24-fba4-414c-a8ef-1b9a2f80da04" type="DSRevitNodesUI.Categories" nickname="Categories" x="546.902090587449" y="-723.360282558999" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:AdaptivePoints" />
+    <Dynamo.Nodes.DSModelElementSelection guid="6752fb5a-c15c-4974-8c5e-e2c7415bbef1" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Model Element" x="334.162553841079" y="-147.32583608103" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="29f161c1-085a-4640-8ea9-5964854d78b3-0009e291" />
+    </Dynamo.Nodes.DSModelElementSelection>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="e58ee368-47aa-4f51-b109-b5d62eba9af0" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="515" y="88" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;类型注释&quot;;" ShouldFocus="false" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="d9fb3575-7a18-4217-bbe8-ade8d689fda5" start_index="0" end="acf042be-89fc-4aeb-8a66-33d2a7ab4019" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="8e0a2c2c-d8a4-41bb-a0c1-0106d97f3e5f" start_index="0" end="ffd77afa-ceeb-4b4c-b486-66bc30010ac0" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="8e0a2c2c-d8a4-41bb-a0c1-0106d97f3e5f" start_index="0" end="871bed12-d020-4509-b07a-625b836649f5" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="74457db6-33f3-488e-a044-65e3a195baf2" start_index="0" end="8e0a2c2c-d8a4-41bb-a0c1-0106d97f3e5f" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="6752fb5a-c15c-4974-8c5e-e2c7415bbef1" start_index="0" end="16e9a89d-812a-4be1-a328-e844b008e157" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e58ee368-47aa-4f51-b109-b5d62eba9af0" start_index="0" end="16e9a89d-812a-4be1-a328-e844b008e157" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>

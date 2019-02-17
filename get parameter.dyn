@@ -1,0 +1,121 @@
+<Workspace Version="0.8.0.950" X="-6" Y="-95" zoom="1" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.DSModelElementSelection guid="4a393baa-4750-4cbe-a4ba-80fbf89d9544" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Model Element" x="104.5" y="51" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="57fee388-7dad-480f-b884-2c99e1a7b5a0-000415f1" />
+    </Dynamo.Nodes.DSModelElementSelection>
+    <Dynamo.Nodes.Function guid="a0768306-e71a-4f70-8d6d-810a5334b1c7" type="Dynamo.Nodes.Function" nickname="Get Parameter from Element" x="875.5" y="109" isVisible="true" isUpstreamVisible="true" lacing="Shortest">
+      <ID value="4c784a8d-102a-4b76-adb1-7b4163c3e2d5" />
+      <Name value="Get Parameter from Element" />
+      <Description value="Get Parameter from Element" />
+      <Inputs>
+        <Input value="Elements" />
+        <Input value="Parameter Names" />
+      </Inputs>
+      <Outputs>
+        <Output value="FamilySymbol" />
+        <Output value="Parameters" />
+        <Output value="ElementID" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="c097a6c0-c41a-4540-883d-6dbc598557f2" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="203" y="267" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="{&quot;标高&quot;,&quot;主体材质&quot;};" ShouldFocus="false" />
+    <DSCoreNodesUI.CreateList guid="0c06fc99-d720-4f2e-ac51-27d92b789662" type="DSCoreNodesUI.CreateList" nickname="List.Create" x="479.5" y="155" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2" />
+    <Dynamo.Nodes.DSModelElementSelection guid="53ebf525-2fa8-42ba-bf54-d5545c74779d" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Model Element" x="116" y="166" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="57fee388-7dad-480f-b884-2c99e1a7b5a0-000415cd" />
+    </Dynamo.Nodes.DSModelElementSelection>
+    <DSRevitNodesUI.WallTypes guid="e9f16a22-0687-4aee-8882-fbeade8a5326" type="DSRevitNodesUI.WallTypes" nickname="Wall Types" x="-4.5" y="376" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="7:常规 - 200mm" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="7f85bac5-ee25-4976-be8f-73ff56518c1b" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="21" y="556" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;粗略比例填式&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.Function guid="3a59db98-a1fa-4b87-a99f-e9aa5ab681fe" type="Dynamo.Nodes.Function" nickname="Get Parameter from Wall" x="256.5" y="447" isVisible="true" isUpstreamVisible="true" lacing="Shortest">
+      <ID value="e9dfc9a5-dbee-492a-ac86-23ca1010ea2a" />
+      <Name value="Get Parameter from Wall" />
+      <Description value="" />
+      <Inputs>
+        <Input value="Wall Types" />
+        <Input value="Parameter Names" />
+      </Inputs>
+      <Outputs>
+        <Output value="Element" />
+        <Output value="Solid" />
+        <Output value="Location Curve" />
+        <Output value="ElementID" />
+        <Output value="Parameters" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <DSIronPythonNode.PythonNode guid="6fdbadeb-ff76-43e2-84b9-e3ea354b58ec" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="765.5" y="350" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2">
+      <Script>#Copyright (c) 2015, zhangzbxyz
+#Dynamo中文社区 http://dynamochina.com
+
+import clr
+
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+
+clr.AddReference("RevitNodes")
+import Revit
+
+clr.ImportExtensions(Revit.Elements)
+
+def getparaval(para):
+	ptype=para.StorageType
+	if ptype==StorageType.String:
+		paravalue=para.AsString()
+	else:
+		paravalue=para.AsValueString()	
+	return paravalue
+
+instlist = UnwrapElement(IN[0])
+paranames=IN[1]
+
+doc = DocumentManager.Instance.CurrentDBDocument
+output = []
+famsyms = []
+elementids = []
+paraset = []
+flag0= 0 if len(paranames)==0 else 1
+
+if flag0:
+	for i in range(len(paranames)):
+		paraset.append([])
+
+for inst in instlist:
+	famsym =inst.Symbol
+	
+	for i in range(len(paranames)):
+		instpara= inst.Parameter[paranames[i]]
+		fampara=famsym.Parameter[paranames[i]]
+		if instpara is not None:
+			para=getparaval(instpara)
+		elif fampara is not None:
+			para=getparaval(fampara)
+		else:
+			para="no parameter"
+		paraset[i].append(para)
+			
+	famsyms.append(famsym)
+	elementids.append(inst.Id.ToString())
+
+output.append(famsyms)
+output.append(elementids)
+if flag0:
+	output.append(paraset)
+        
+OUT = output</Script>
+    </DSIronPythonNode.PythonNode>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="4a393baa-4750-4cbe-a4ba-80fbf89d9544" start_index="0" end="a0768306-e71a-4f70-8d6d-810a5334b1c7" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4a393baa-4750-4cbe-a4ba-80fbf89d9544" start_index="0" end="0c06fc99-d720-4f2e-ac51-27d92b789662" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c097a6c0-c41a-4540-883d-6dbc598557f2" start_index="0" end="a0768306-e71a-4f70-8d6d-810a5334b1c7" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c097a6c0-c41a-4540-883d-6dbc598557f2" start_index="0" end="6fdbadeb-ff76-43e2-84b9-e3ea354b58ec" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="0c06fc99-d720-4f2e-ac51-27d92b789662" start_index="0" end="6fdbadeb-ff76-43e2-84b9-e3ea354b58ec" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="53ebf525-2fa8-42ba-bf54-d5545c74779d" start_index="0" end="0c06fc99-d720-4f2e-ac51-27d92b789662" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e9f16a22-0687-4aee-8882-fbeade8a5326" start_index="0" end="3a59db98-a1fa-4b87-a99f-e9aa5ab681fe" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7f85bac5-ee25-4976-be8f-73ff56518c1b" start_index="0" end="3a59db98-a1fa-4b87-a99f-e9aa5ab681fe" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>

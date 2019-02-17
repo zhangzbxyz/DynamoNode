@@ -1,0 +1,41 @@
+<Workspace Version="0.8.1.830" X="524.786260689405" Y="-705.007163340682" zoom="1.703916824555" Name="Home" RunType="Manual" RunPeriod="100">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSCore.Map guid="524894b2-ea49-4754-b148-8fa6f9b82907" type="DSCore.Map" nickname="List.Map" x="283.980099962908" y="412.803705192878" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.Function guid="591e90ad-2a06-450d-a209-16efef6a25bd" type="Dynamo.Nodes.Function" nickname="LunchBox Wall Element Collector" x="8.98009996290801" y="493.803705192878" isVisible="true" isUpstreamVisible="true" lacing="Shortest">
+      <ID value="3cf8f8fd-ebe9-4199-9e90-a8fde957a2a2" />
+      <Name value="LunchBox Wall Element Collector" />
+      <Description value="Collects wall elements from the Revit document." />
+      <Inputs>
+        <Input value="Toggle" />
+        <Input value="Wall Type" />
+      </Inputs>
+      <Outputs>
+        <Output value="Element" />
+        <Output value="Solid" />
+        <Output value="Location Curve" />
+        <Output value="Height" />
+        <Output value="Area" />
+        <Output value="Level" />
+        <Output value="ElementID" />
+        <Output value="Unique ID" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.DSFunction guid="53d77331-eec7-42a6-8137-8141c4389082" type="Dynamo.Nodes.DSFunction" nickname="PolyCurve.ByJoinedCurves" x="491.980099962908" y="420.803705192878" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves@Autodesk.DesignScript.Geometry.Curve[]" />
+    <Dynamo.Nodes.DSFunction guid="19cc5633-7a44-43be-899e-31615c7f5af9" type="Dynamo.Nodes.DSFunction" nickname="PolyCurve.Offset" x="771.980099962908" y="430.803705192878" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.PolyCurve.Offset@double,bool" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="bcccf1f4-ba48-40ba-bdd7-dfc4af01ffca" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="614" y="525" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="-100;" ShouldFocus="false" />
+    <DSCoreNodesUI.BoolSelector guid="4eb76dbc-0024-4fa3-8b4e-64d76244bf93" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="570.980099962908" y="657.803705192878" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>False</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <DSRevitNodesUI.WallTypes guid="b74c7f0a-8763-4e1b-acc9-9b5a9a04e2f7" type="DSRevitNodesUI.WallTypes" nickname="Wall Types" x="-2.51990003709199" y="358.303705192878" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="7:常规 - 200mm" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="524894b2-ea49-4754-b148-8fa6f9b82907" start_index="0" end="53d77331-eec7-42a6-8137-8141c4389082" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="591e90ad-2a06-450d-a209-16efef6a25bd" start_index="2" end="524894b2-ea49-4754-b148-8fa6f9b82907" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="53d77331-eec7-42a6-8137-8141c4389082" start_index="0" end="19cc5633-7a44-43be-899e-31615c7f5af9" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="bcccf1f4-ba48-40ba-bdd7-dfc4af01ffca" start_index="0" end="19cc5633-7a44-43be-899e-31615c7f5af9" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4eb76dbc-0024-4fa3-8b4e-64d76244bf93" start_index="0" end="19cc5633-7a44-43be-899e-31615c7f5af9" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="b74c7f0a-8763-4e1b-acc9-9b5a9a04e2f7" start_index="0" end="524894b2-ea49-4754-b148-8fa6f9b82907" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>

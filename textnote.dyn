@@ -1,0 +1,47 @@
+<Workspace Version="0.8.0.950" X="0" Y="0" zoom="1" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="b3170df3-35d3-40f5-984d-bfa3e8f39475" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="1450.67924712044" y="-82.385351335487" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
+      <Script>import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# Import RevitAPI
+clr.AddReference('RevitAPI')
+import Autodesk
+
+# Import DocumentManager and TransactionManager
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSType(bool) extension method
+clr.AddReference('RevitNodes')
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+walls = UnwrapElement(IN[0])
+pipes = UnwrapElement(IN[1])
+windowfamily = UnwrapElement(IN[2])
+guanjing = IN[3]
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uiapp = DocumentManager.Instance.CurrentUIApplication
+app = uiapp.Application
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+
+
+	SillHeight = start2.Z-start1.Z-guanjingx/2-0.082
+	famInst = doc.Create.NewFamilyInstance(location, windowfamily, wall, Autodesk.Revit.DB.Structure.StructuralType.NonStructural)
+	famInst.get_Parameter('底高度').Set(SillHeight)
+	famInst.get_Parameter('管道直径').Set(guanjingx)
+
+# End Transaction
+TransactionManager.Instance.TransactionTaskDone()</Script>
+    </DSIronPythonNode.PythonNode>
+  </Elements>
+  <Connectors />
+  <Notes />
+</Workspace>

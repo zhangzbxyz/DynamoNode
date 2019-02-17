@@ -1,0 +1,80 @@
+<Workspace Version="0.9.1.4062" X="130.610359026095" Y="251.844018744034" zoom="0.765829392851552" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSRevitNodesUI.ElementsOfType guid="862d32e6-fd72-47dd-9251-de6496e678c1" type="DSRevitNodesUI.ElementsOfType" nickname="All Elements of Type" x="254.44362475143" y="-169.001202783423" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="11a7a442-119f-44b7-bd98-36cda48e1172" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="String.Contains" x="593.081400911997" y="244.305424038862" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="DSCoreNodes.dll" function="DSCore.String.Contains@string,string,bool">
+      <PortInfo index="2" default="True" />
+    </Dynamo.Graph.Nodes.ZeroTouch.DSFunction>
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="7d54d50a-fa42-4e97-9c16-e8981b89fc6e" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="349.300419678461" y="334.067757242743" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" CodeText="&quot;风管&quot;;" ShouldFocus="false" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="0db3fe3f-7979-4c54-aeb8-7981c78864f3" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="List.FilterByBoolMask" x="744.808668756357" y="-11.2602137896292" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="DSCoreNodes.dll" function="DSCore.List.FilterByBoolMask@var[]..[],var[]..[]" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="f8eaf747-f306-40c0-94ff-2419e69b0bf5" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="String.Replace" x="1160.74954213193" y="297.218734534384" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="DSCoreNodes.dll" function="DSCore.String.Replace@string,string,string" />
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="96a99638-505e-4c93-901c-569fb82aa1cc" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="914" y="380" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" CodeText="&quot;&quot;;" ShouldFocus="false" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="f63b2134-5796-4323-af2a-0047f7fe3c62" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Element.SetParameterByName" x="1543.15982721382" y="271.94384449244" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="RevitNodes.dll" function="Revit.Elements.Element.SetParameterByName@string,var" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="d2212914-f1dd-422e-b995-d7e7d060dbe3" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Element.Parameters" x="1443.80777537797" y="-124.600431965443" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="RevitNodes.dll" function="Revit.Elements.Element.Parameters" />
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="10075761-ae96-48ca-b877-f66349709b52" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1180.74082073434" y="-54.7451403887689" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" CodeText="x[1];" ShouldFocus="false" />
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="e3a7f270-fae2-4272-87f7-0f64166af436" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1276" y="515" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" CodeText="" ShouldFocus="false" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="e4dff903-3abc-41aa-8f27-d7b7192784d6" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Element.GetParameterValueByName" x="1472.66128611975" y="53.1348014461266" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="RevitNodes.dll" function="Revit.Elements.Element.GetParameterValueByName@string" />
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="323d1ea7-44f7-45b8-8632-2f54f3622af0" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1334.69330453564" y="171.816414686825" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" CodeText="&quot;视图分类-父&quot;;" ShouldFocus="false" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="adb48f68-6d51-4975-91b2-d0ac28dfe715" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Level.Name" x="922.124190064795" y="131.493520518359" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="RevitNodes.dll" function="Revit.Elements.Level.Name" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="fcb73fe3-943e-4275-af49-07837f7ec9ec" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Element.GetParameterValueByName" x="279.260846340883" y="178.855199854607" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="RevitNodes.dll" function="Revit.Elements.Element.GetParameterValueByName@string" />
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="eb897c69-974b-407b-8d52-4179a7400691" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="115.177387619586" y="260.975145103245" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" CodeText="&quot;视图分类-父&quot;;" ShouldFocus="false" />
+    <DSRevitNodesUI.ElementsOfFamilyType guid="8f424e8d-65e1-46b3-9380-f309988fc761" type="DSRevitNodesUI.ElementsOfFamilyType" nickname="All Elements of Family Type" x="822.11283245088" y="440.521759496873" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" />
+    <DSRevitNodesUI.FamilyTypes guid="a21c5cf3-d41c-4d35-8361-068d00f1666f" type="DSRevitNodesUI.FamilyTypes" nickname="Family Types" x="282.828229567982" y="464.025688920341" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" index="0:280℃矩形电动防火阀:标准" />
+    <DSRevitNodesUI.ElementsOfFamilyType guid="d78d858c-27f0-49e6-aa6b-c872b01ffa8e" type="DSRevitNodesUI.ElementsOfFamilyType" nickname="All Elements of Family Type" x="884.789977580127" y="518.868190908433" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="07fcd93a-8134-47f8-a64b-939145e25b0d" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="FloorPlanView.ByLevel" x="884.789977580127" y="518.868190908433" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="RevitNodes.dll" function="Revit.Elements.Views.FloorPlanView.ByLevel@Revit.Elements.Level" />
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="0f5f13e5-4a1e-4911-84a2-f53a82945569" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="CeilingPlanView.ByLevel" x="916.128550144751" y="550.206763473056" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" assembly="RevitNodes.dll" function="Revit.Elements.Views.CeilingPlanView.ByLevel@Revit.Elements.Level" />
+    <Dynamo.Graph.Nodes.CustomNodes.Function guid="f3902bb7-df3f-42c7-87e1-ea92b01c530c" type="Dynamo.Graph.Nodes.CustomNodes.Function" nickname="View.Plane" x="947.467122709375" y="581.54533603768" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false">
+      <ID value="d6dbde59-f3f7-47b5-9e1e-f30991f58ac1" />
+      <Name value="View.Plane" />
+      <Description value="Retrieves the plane of a given view" />
+      <Inputs>
+        <Input value="View(s)" />
+      </Inputs>
+      <Outputs>
+        <Output value="Plane(s)" />
+      </Outputs>
+    </Dynamo.Graph.Nodes.CustomNodes.Function>
+    <Dynamo.Graph.Nodes.CustomNodes.Function guid="7fb153fb-b94e-4734-8200-67b1181f6944" type="Dynamo.Graph.Nodes.CustomNodes.Function" nickname="获取视图" x="372.926625691275" y="638.99938573949" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="True" IsFrozen="false">
+      <ID value="81757ffe-0c72-47be-9afb-17025b80f9f6" />
+      <Name value="获取视图" />
+      <Description value="Gets all views in the document - except for 3D view templates (as long as this bug is not fixed: https://github.com/DynamoDS/Dynamo/issues/2970)" />
+      <Inputs />
+      <Outputs>
+        <Output value="Views" />
+        <Output value="楼层平面" />
+      </Outputs>
+    </Dynamo.Graph.Nodes.CustomNodes.Function>
+    <Dynamo.Graph.Nodes.CustomNodes.Function guid="b440dc93-b791-4d60-a7cb-ade730d30c64" type="Dynamo.Graph.Nodes.CustomNodes.Function" nickname="获取视图" x="-20.1113052233795" y="-4.74712569215362" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="True" IsFrozen="false">
+      <ID value="81757ffe-0c72-47be-9afb-17025b80f9f6" />
+      <Name value="获取视图" />
+      <Description value="Gets all views in the document - except for 3D view templates (as long as this bug is not fixed: https://github.com/DynamoDS/Dynamo/issues/2970)" />
+      <Inputs />
+      <Outputs>
+        <Output value="Views" />
+        <Output value="楼层平面" />
+      </Outputs>
+    </Dynamo.Graph.Nodes.CustomNodes.Function>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="862d32e6-fd72-47dd-9251-de6496e678c1" start_index="0" end="10075761-ae96-48ca-b877-f66349709b52" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="11a7a442-119f-44b7-bd98-36cda48e1172" start_index="0" end="0db3fe3f-7979-4c54-aeb8-7981c78864f3" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="7d54d50a-fa42-4e97-9c16-e8981b89fc6e" start_index="0" end="11a7a442-119f-44b7-bd98-36cda48e1172" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="7d54d50a-fa42-4e97-9c16-e8981b89fc6e" start_index="0" end="f8eaf747-f306-40c0-94ff-2419e69b0bf5" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="0db3fe3f-7979-4c54-aeb8-7981c78864f3" start_index="0" end="adb48f68-6d51-4975-91b2-d0ac28dfe715" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="96a99638-505e-4c93-901c-569fb82aa1cc" start_index="0" end="f8eaf747-f306-40c0-94ff-2419e69b0bf5" end_index="2" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="10075761-ae96-48ca-b877-f66349709b52" start_index="0" end="d2212914-f1dd-422e-b995-d7e7d060dbe3" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="10075761-ae96-48ca-b877-f66349709b52" start_index="0" end="e4dff903-3abc-41aa-8f27-d7b7192784d6" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="323d1ea7-44f7-45b8-8632-2f54f3622af0" start_index="0" end="e4dff903-3abc-41aa-8f27-d7b7192784d6" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="adb48f68-6d51-4975-91b2-d0ac28dfe715" start_index="0" end="f8eaf747-f306-40c0-94ff-2419e69b0bf5" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="fcb73fe3-943e-4275-af49-07837f7ec9ec" start_index="0" end="11a7a442-119f-44b7-bd98-36cda48e1172" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="eb897c69-974b-407b-8d52-4179a7400691" start_index="0" end="fcb73fe3-943e-4275-af49-07837f7ec9ec" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="b440dc93-b791-4d60-a7cb-ade730d30c64" start_index="1" end="fcb73fe3-943e-4275-af49-07837f7ec9ec" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="b440dc93-b791-4d60-a7cb-ade730d30c64" start_index="1" end="0db3fe3f-7979-4c54-aeb8-7981c78864f3" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="背景预览" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

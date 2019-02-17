@@ -1,0 +1,50 @@
+<Workspace Version="0.9.1.4062" X="67.789455810322" Y="68.451614662431" zoom="1.30092502421644" Name="获取视图" Description="Gets all views in the document - except for 3D view templates (as long as this bug is not fixed: https://github.com/DynamoDS/Dynamo/issues/2970)" ID="61532dcd-1139-4502-92cc-c7e8424d764b" Category="Clockwork.Revit.Document.Query">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="8391a372-b113-4e1a-b6ea-aa1f0875826c" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="302.099547159052" y="58.4199693181977" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false">
+      <Symbol value="Views" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <PythonNodeModels.PythonNode guid="9360058e-8acd-40b3-8a55-a4891ad83340" type="PythonNodeModels.PythonNode" nickname="Python Script" x="0" y="22" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" inputcount="0">
+      <Script>import clr
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+import Autodesk
+
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+
+doc = DocumentManager.Instance.CurrentDBDocument
+collector = FilteredElementCollector(doc)
+views = collector.OfClass(View).ToElements()
+viewlist = list()
+planlist = list()
+for view in views:
+	if view.ViewType == ViewType.ThreeD:
+		if not(view.IsTemplate):
+			viewlist.append(view)
+	else:
+		viewlist.append(view)
+		
+for v in viewlist:
+	if v.get_Parameter(BuiltInParameter.VIEW_FAMILY_SCHEDULES).AsString() == "楼层平面":
+		planlist.append(v)
+OUT = [viewlist,planlist]</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="b987b46f-6055-4f60-a1c3-1bd9f3fac0ab" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="261.117248579471" y="179.117548011407" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false">
+      <Symbol value="楼层平面" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="b009ccbe-2ee8-44d8-a4ff-51e22321fbf3" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="89" y="115" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" CodeText="x[0];&#xA;x[1];" ShouldFocus="false" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="9360058e-8acd-40b3-8a55-a4891ad83340" start_index="0" end="b009ccbe-2ee8-44d8-a4ff-51e22321fbf3" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="b009ccbe-2ee8-44d8-a4ff-51e22321fbf3" start_index="0" end="8391a372-b113-4e1a-b6ea-aa1f0875826c" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="b009ccbe-2ee8-44d8-a4ff-51e22321fbf3" start_index="1" end="b987b46f-6055-4f60-a1c3-1bd9f3fac0ab" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="背景预览" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

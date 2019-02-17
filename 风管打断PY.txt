@@ -1,0 +1,69 @@
+/// <summary>
+        ///将一跟风管截为两段
+        /// </summary>
+        /// <param name="duct">所要截断的风管</param>
+        /// <param name="point">选取的截断点</param>
+        /// <returns>返回截断后的两根风管</returns>
+        public static IList<Duct> SliceDuctIntoTwo(Duct duct, XYZ point, Document doc)
+        {
+            IList<Duct> ductGroup = new List<Duct>();
+            LocationCurve locCur = duct.Location as LocationCurve;
+            XYZ start_point = locCur.Curve.GetEndPoint(0);
+            XYZ end_point = locCur.Curve.GetEndPoint(1);
+            log += "SlicingDuctIntoTwo:\r\n";
+            log +=
+                "GetStartPoint:" + start_point.X + "," + start_point.Y + "," + start_point.Z + "\r\n" +
+                "GetEndPoint:" + end_point.X + "," + end_point.Y + "," + end_point.Z + "\r\n";
+            Curve line1 = Line.CreateBound(start_point, point);
+            Curve line2 = Line.CreateBound(point, end_point);
+            Duct duct1 = doc.GetElement(ElementTransformUtils.CopyElement(doc, duct.Id, new XYZ(0, 0, 0)).ElementAt(0)) as Duct;
+            Duct duct2 = doc.GetElement(ElementTransformUtils.CopyElement(doc, duct.Id, new XYZ(0, 0, 0)).ElementAt(0)) as Duct;
+            LocationCurve locCur1 = duct1.Location as LocationCurve;
+            LocationCurve locCur2 = duct2.Location as LocationCurve;
+            locCur1.Curve = line1;
+            locCur2.Curve = line2;
+            //断开原风管的连接，建立新的风管连接
+            IList<Connector> connected = GetConnectedConnectors(duct);
+            ConnectorSetIterator csIterator = duct.ConnectorManager.Connectors.ForwardIterator();
+            while (csIterator.MoveNext())
+            {
+                Connector c_current = csIterator.Current as Connector;
+                foreach (Connector c in connected)
+                {
+                    if (c_current.Origin.IsAlmostEqualTo(c.Origin))
+                    {
+                        if (c_current.Origin.IsAlmostEqualTo(start_point))
+                        {
+                            c_current.DisconnectFrom(c);
+                            ConnectorSetIterator csIterator1 = duct1.ConnectorManager.Connectors.ForwardIterator();
+                            while (csIterator1.MoveNext())
+                            {
+                                Connector c1 = csIterator1.Current as Connector;
+                                if (c1.Origin.IsAlmostEqualTo(start_point))
+                                {
+                                    c1.ConnectTo(c);
+                                }
+                            }
+                        }
+                        else if (c_current.Origin.IsAlmostEqualTo(end_point))
+                        {
+                            c_current.DisconnectFrom(c);
+                            ConnectorSetIterator csIterator2 = duct2.ConnectorManager.Connectors.ForwardIterator();
+                            while (csIterator2.MoveNext())
+                            {
+                                Connector c2 = csIterator2.Current as Connector;
+                                if (c2.Origin.IsAlmostEqualTo(end_point))
+                                {
+                                    c2.ConnectTo(c);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            ductGroup.Add(duct1);
+            ductGroup.Add(duct2);
+            doc.Delete(duct.Id);
+            log += "Sliced\r\n";
+            return ductGroup;
+        }

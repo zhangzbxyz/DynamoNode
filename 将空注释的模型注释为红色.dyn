@@ -1,0 +1,48 @@
+<Workspace Version="0.8.1.830" X="-954.318728505915" Y="159.279205719582" zoom="1.06060772236021" Name="Home" RunType="Manual" RunPeriod="100">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSRevitNodesUI.Categories guid="fafcbec1-751f-4040-84f7-a22b701d7ddc" type="DSRevitNodesUI.Categories" nickname="Categories" x="34.3396095297101" y="264.514474173705" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="877:Walls" />
+    <DSRevitNodesUI.ElementsOfCategory guid="a8c595a3-bfa6-4cc8-82e1-b3f3b91f6a88" type="DSRevitNodesUI.ElementsOfCategory" nickname="All Elements of Category" x="236.970842332613" y="268.952483801296" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction guid="7ff40bee-7506-4a11-bcf4-c854b91a9abe" type="Dynamo.Nodes.DSFunction" nickname="Element.GetParameterValueByName" x="466.805616152242" y="104.548533257004" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="RevitNodes.dll" function="Revit.Elements.Element.GetParameterValueByName@string" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="6e3c5efe-8fae-444f-a0be-7226a2e0cfd0" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="268.943844492441" y="381.177105831533" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;注释&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="759dd316-2a9b-45ef-9b02-ede3be2f57cb" type="Dynamo.Nodes.DSFunction" nickname="String.Contains" x="789.790496760259" y="392.369330453564" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.String.Contains@string,string,bool">
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="4026f363-e81c-4b35-bbf6-c2ef943eea22" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="593.066954643628" y="425.177105831533" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;&quot;;" ShouldFocus="false" />
+    <DSCoreNodesUI.BoolSelector guid="598a8b82-81c4-4701-8fcc-bfaf849c6cfc" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="579.855291576674" y="547.876889848812" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <DSCoreNodesUI.Formula guid="5af99d59-9055-4c64-9c28-9f34be9e92f9" type="DSCoreNodesUI.Formula" nickname="Formula" x="1094.81318190417" y="317.392212876618" isVisible="true" isUpstreamVisible="true" lacing="Shortest">
+      <FormulaText>if(x==a,true,false)</FormulaText>
+    </DSCoreNodesUI.Formula>
+    <Dynamo.Nodes.DSFunction guid="900d3be3-0416-4544-ade8-54d079d5e965" type="Dynamo.Nodes.DSFunction" nickname="List.FilterByBoolMask" x="944.596202948139" y="125.689475007227" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.FilterByBoolMask@var[]..[],var[]..[]" />
+    <Dynamo.Nodes.DSFunction guid="782127de-9062-4367-ae64-f8ba9e17d5df" type="Dynamo.Nodes.DSFunction" nickname="Element.OverrideColorInView" x="1307.8101437336" y="77.5080338826249" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="RevitNodes.dll" function="Revit.Elements.Element.OverrideColorInView@DSCore.Color" />
+    <Dynamo.Nodes.DSFunction guid="7861b3f7-f32f-4da9-8fb2-3e68c5c0f747" type="Dynamo.Nodes.DSFunction" nickname="Color.ByARGB" x="1160.48612183337" y="-162.472605564912" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.Color.ByARGB@int,int,int,int">
+      <PortInfo index="0" default="True" />
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+      <PortInfo index="3" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="da270683-eb20-4388-8395-26265da5d4b9" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="903" y="-135" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="0;" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="af03eaed-92af-4709-ac9e-6af5bb3be166" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="890.961139651021" y="-48.0734338245269" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="255;" ShouldFocus="false" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="fafcbec1-751f-4040-84f7-a22b701d7ddc" start_index="0" end="a8c595a3-bfa6-4cc8-82e1-b3f3b91f6a88" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="a8c595a3-bfa6-4cc8-82e1-b3f3b91f6a88" start_index="0" end="7ff40bee-7506-4a11-bcf4-c854b91a9abe" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="a8c595a3-bfa6-4cc8-82e1-b3f3b91f6a88" start_index="0" end="900d3be3-0416-4544-ade8-54d079d5e965" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7ff40bee-7506-4a11-bcf4-c854b91a9abe" start_index="0" end="759dd316-2a9b-45ef-9b02-ede3be2f57cb" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7ff40bee-7506-4a11-bcf4-c854b91a9abe" start_index="0" end="5af99d59-9055-4c64-9c28-9f34be9e92f9" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="6e3c5efe-8fae-444f-a0be-7226a2e0cfd0" start_index="0" end="7ff40bee-7506-4a11-bcf4-c854b91a9abe" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4026f363-e81c-4b35-bbf6-c2ef943eea22" start_index="0" end="759dd316-2a9b-45ef-9b02-ede3be2f57cb" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4026f363-e81c-4b35-bbf6-c2ef943eea22" start_index="0" end="5af99d59-9055-4c64-9c28-9f34be9e92f9" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="598a8b82-81c4-4701-8fcc-bfaf849c6cfc" start_index="0" end="759dd316-2a9b-45ef-9b02-ede3be2f57cb" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="5af99d59-9055-4c64-9c28-9f34be9e92f9" start_index="0" end="900d3be3-0416-4544-ade8-54d079d5e965" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="900d3be3-0416-4544-ade8-54d079d5e965" start_index="0" end="782127de-9062-4367-ae64-f8ba9e17d5df" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7861b3f7-f32f-4da9-8fb2-3e68c5c0f747" start_index="0" end="782127de-9062-4367-ae64-f8ba9e17d5df" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="da270683-eb20-4388-8395-26265da5d4b9" start_index="0" end="7861b3f7-f32f-4da9-8fb2-3e68c5c0f747" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="da270683-eb20-4388-8395-26265da5d4b9" start_index="0" end="7861b3f7-f32f-4da9-8fb2-3e68c5c0f747" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="da270683-eb20-4388-8395-26265da5d4b9" start_index="0" end="7861b3f7-f32f-4da9-8fb2-3e68c5c0f747" end_index="3" portType="0" />
+    <Dynamo.Models.ConnectorModel start="af03eaed-92af-4709-ac9e-6af5bb3be166" start_index="0" end="7861b3f7-f32f-4da9-8fb2-3e68c5c0f747" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>
